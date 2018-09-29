@@ -1,0 +1,26 @@
+#single-serie-container {
+    margin: 30px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+#single-serie-container>div>img {
+    border-radius: 20px;
+    margin-right: 20px;
+    width: 500px;
+}
+
+#single-serie-container>div>ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    line-height: 25px;
+}
+#single-serie-container>div h4 {
+    margin: 10px;
+}
+
+
