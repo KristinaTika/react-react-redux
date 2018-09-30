@@ -44,77 +44,80 @@ class Home extends Component {
         e.preventDefault();
         let { searchValue, searchType } = this.state;
 
-        if(searchType === "") {
+        if (searchType === "") {
             this.setState({
                 errorMsg: "Please choose type of search"
             })
         }
 
-        if(searchType === "characters") {
+        if (searchType === "characters") {
             characterService.fetchCharacters(searchValue)
                 .then((res) => {
                     this.setState({
-                        results: res
+                        results: res,
+                        errorMsg: "",
+                        searchValue: ""
                     });
                 });
         }
 
-        if(searchType === "comics") {
+        if (searchType === "comics") {
             comicsService.fetchComics(searchValue)
                 .then((res) => {
                     this.setState({
-                        results: res
+                        results: res, 
+                        errorMsg: "",
+                        searchValue: ""
                     });
                 });
         }
 
-        if(searchType === "series") {
+        if (searchType === "series") {
             seriesService.fetchSeries(searchValue)
                 .then((res) => {
                     this.setState({
-                        results: res
+                        results: res,
+                        errorMsg: "",
+                        searchValue: ""
                     });
                 });
         }
     }
 
     renderResults(results) {
-        if(results.length === 0) {
-            return <div>
-                        <img src='./no-results2.jpg' alt="No Results" id="no-results" />
-                    </div>;
+        if (results.length === 0) {
+            return <div>No Results</div>;
         }
         return results.map((r) => {
-            if(r instanceof Character) {
-                return <CharacterItem  key={r.id} character={r} />
+            if (r instanceof Character) {
+                return <CharacterItem key={r.id} character={r} />
             }
-            if(r instanceof Comic) {
-                return <ComicItem  key={r.id} comic={r} />
+            if (r instanceof Comic) {
+                return <ComicItem key={r.id} comic={r} />
             }
-            if(r instanceof Serie) {
-                return <SerieItem  key={r.id} serie={r} />
+            if (r instanceof Serie) {
+                return <SerieItem key={r.id} serie={r} />
             }
         });
     }
 
     render() {
-        let displayCharacters = <div>You haven't searched for anything yet.</div>
-        const { errorMsg, results } = this.state;
+        const { errorMsg, results, searchValue } = this.state;
         return (
             <div id="home-container">
                 <h2>Welcome to Marvel App. Start exploring Marvel Universe. </h2>
                 <form onSubmit={this.handleSubmit}>
                     <p> Please choose type of search </p>
-                    <input type="radio" name="search-category" value="characters" className="search-type" onClick={this.handleSearchType}/> Characters
-                    <input type="radio" name="search-category" value="comics" className="search-type" onClick={this.handleSearchType}/> Comics
-                    <input type="radio" name="search-category" value="series" className="search-type" onClick={this.handleSearchType}/> Series
+                    <input type="radio" name="search-category" value="characters" className="search-type" onClick={this.handleSearchType} /> Characters
+                    <input type="radio" name="search-category" value="comics" className="search-type" onClick={this.handleSearchType} /> Comics
+                    <input type="radio" name="search-category" value="series" className="search-type" onClick={this.handleSearchType} /> Series
                     < br />
-                    <input type="text" name="searchValue" placeholder="Search Characters" onChange={this.handleChange} />
+                    <input type="text" name="searchValue" placeholder="Search Characters" value={searchValue} onChange={this.handleChange} />
                     <button onClick={this.handleSubmit}>Search</button>
                 </form>
                 <p> {errorMsg !== "" ? errorMsg : ""} </p>
                 <ul id="characters-list">
-                    { !results ? <div id="search-results">You haven't search for anything yet.</div> : this.renderResults(results)}
+                    {!results ? "" : this.renderResults(results)}
                 </ul>
             </div>
         );

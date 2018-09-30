@@ -29,9 +29,7 @@ class SingleComic extends Component {
     }
 
     render() {
-     
         const comic = this.state.comic[0];
-        console.log(comic);
         return (
             <div >
                 { !comic ? <Loader /> : <h3> {comic.title} </h3> }   

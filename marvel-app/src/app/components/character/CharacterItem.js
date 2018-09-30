@@ -1,11 +1,12 @@
 import React from 'react';
 import './CharacterItem.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export const CharacterItem = (props) => {
 
-    const {name, image, id} = props.character;
-    
+    const { name, image, id } = props.character;
+
     return (
         <Link to={"/characters/" + id}>
             <li className="characters-li-item">
@@ -16,6 +17,9 @@ export const CharacterItem = (props) => {
             </li>
         </Link>
     );
+}
+CharacterItem.propTypes = {
+    character: PropTypes.object.isRequired
 }
 
 export default CharacterItem;

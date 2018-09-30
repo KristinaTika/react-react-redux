@@ -62,9 +62,8 @@ form button {
 }
 
 #characters-list li:hover {
-    background-color: #F44336;
-    background-color: #FFEB3B;
     color: #FFFFFF;
+    box-shadow: 10px 10px 31px 21px rgba(0,0,0,0.99);
 }
 
 #search-results {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './MovieItem.css';
+import PropTypes from 'prop-types';
 
 const MovieItem = (props) => {
 
@@ -16,6 +17,9 @@ const MovieItem = (props) => {
         </li>
     </Link>
     );
+}
+MovieItem.propTypes = {
+    movie: PropTypes.object.isRequired
 }
 
 export default MovieItem;

@@ -9,16 +9,18 @@
     margin-top: 20px;
     margin-bottom: 20px;
     list-style: none;
+    background-image: url("http://pavbca.com/walldb/original/1/9/6/240948.jpg");
+    background-repeat: repeat;
+    background-size: contain;
 }
 
 #movies-list li {
     border: 0 solid #F44336;
     border-radius: 20px;
+    color: #FFFFFF;
 }
 
 #movies-list li:hover {
-    background-color: #F44336;
-    background-color: #FFEB3B;
-    color: #FFFFFF;
+    box-shadow: 10px 10px 31px 21px rgba(0,0,0,0.99);
 }
 

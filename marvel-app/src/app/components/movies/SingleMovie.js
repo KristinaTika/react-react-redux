@@ -35,7 +35,6 @@ class SingleMovie extends Component {
 
     render() {
         const movie = this.state.movie[0];
-        console.log(movie);
         return (
             <div id="single-movie-container">
                 {
