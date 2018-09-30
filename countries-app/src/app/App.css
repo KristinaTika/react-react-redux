@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  min-height: 88vh;
+}
+
+ol {
+
+}
+
+.green {
+  color: green;
+}
+
+.red{
+  color: red;
+}
+

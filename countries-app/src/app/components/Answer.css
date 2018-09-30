@@ -1,0 +1,26 @@
+.answer-li {
+    margin:4px;
+    text-shadow: 0 0.07em #fff;
+}
+
+.bla {
+    margin-right: 4px;
+}
+
+.wrong {
+    color: red;
+}
+
+.right {
+    color: green;
+}
+
+.div-hover:hover {
+    color: #009688;
+    color:  #f1c40f;
+}
+
+
+
+
+  
