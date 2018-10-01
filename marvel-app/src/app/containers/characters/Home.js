@@ -18,8 +18,7 @@ class Home extends Component {
         this.state = {
             results: null,
             searchValue: "",
-            searchType: "",
-            errorMsg: ""
+            searchType: ""
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -88,7 +87,7 @@ class Home extends Component {
         if (results.length === 0) {
             return <div>No Results</div>;
         }
-        return results.map((r) => {
+        return results.map(r => {
             if (r instanceof Character) {
                 return <CharacterItem key={r.id} character={r} />
             }
@@ -115,9 +114,9 @@ class Home extends Component {
                     <input type="text" name="searchValue" placeholder="Search Characters" value={searchValue} onChange={this.handleChange} />
                     <button onClick={this.handleSubmit}>Search</button>
                 </form>
-                <p> {errorMsg !== "" ? errorMsg : ""} </p>
+                <p> {errorMsg && errorMsg } </p>
                 <ul id="characters-list">
-                    {!results ? "" : this.renderResults(results)}
+                    {results && this.renderResults(results)}
                 </ul>
             </div>
         );

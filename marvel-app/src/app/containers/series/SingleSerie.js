@@ -18,7 +18,7 @@ class SingleSerie extends Component {
         const {id} = this.props.match.params;
         seriesService.fetchSingleSerie(id)
             .then(res => (this.setState({serie: res})))
-            .catch(err => console.log("Something went wrong!", err));
+            .catch(err => this.setState({errorMessage :`Something went wrong! ${err.message}`}));
     }
 
     renderInfo(titles) {
@@ -27,13 +27,13 @@ class SingleSerie extends Component {
 
     render() {
         const serie = this.state.serie[0];
+        const { errorMessage } = this.state;
         return (
             <div >
-                { !serie ? <Loader /> : <h3> {serie.title} </h3> }   
-                {!serie
-                    ?
-                        ""
-                    : 
+                <div id="error"> {errorMessage && errorMessage}
+                    {!serie ? <Loader /> : <h3> {serie.title} </h3>}
+                </div>
+                {serie &&
                         <div id="single-serie-container">
                             <div>
                                 <img src={serie.image} alt={serie.title} />

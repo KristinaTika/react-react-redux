@@ -34,11 +34,11 @@ class SingleCharacter extends Component {
             .then(res => (this.setState({stories: res})))
             .then(res => comicsService.fetchCharacterComics(id))
             .then(res => (this.setState({comics: res})))
-            .catch(err => console.log("Something went wrong!", err));
+            .catch(err => console.log("Something went wrong!", err.message));
     }
 
     renderTitles(titles) {
-        return titles.map((t) => {
+        return titles.map(t => {
             if(t instanceof Serie) {
                 return <Link to={"/series/" + t.id} key={t.id}>{t.title}</Link>
             }
@@ -56,11 +56,8 @@ class SingleCharacter extends Component {
         const { series, stories, comics } = this.state;
         return (
             <div >
-                { !character ? <Loader /> : <h3> {character.name} </h3> }   
-            { !character
-                ?
-                    ""
-                :
+                { character && <h3> {character.name} </h3> }   
+            { character &&
                     <div id="single-character-container">
                         <div>
                             <img src={character.image} alt={character.name} />
@@ -70,29 +67,15 @@ class SingleCharacter extends Component {
                             <p> {character.description} </p>
                             <h4> Series: </h4>
                             <ul>
-                                {
-                                    !series
-                                    ? <Loader />
-                                    : series.length === 0 ? <Loader /> : this.renderTitles(series)
-                                }
+                                { !series ? <Loader /> : series.length === 0 ? <Loader /> : this.renderTitles(series) }
                             </ul>
                                 <h4> Stories: </h4>
                             <ul>
-                                {
-                                    !stories
-                                    ? <Loader />
-                                    : stories.length === 0 ? <Loader />
-                                    : this.renderTitles(stories)
-                                }
+                                { !stories ? <Loader /> : stories.length === 0 ? <Loader />: this.renderTitles(stories) }
                             </ul>
                             <h4> Comics: </h4>
                             <ul>
-                                {
-                                    !comics
-                                    ? <Loader />
-                                    : comics.length === 0 ? <Loader />
-                                    : this.renderTitles(comics)
-                                }
+                                { !comics ? <Loader /> : comics.length === 0 ? <Loader /> : this.renderTitles(comics) }
                             </ul>
                         </div>
                     </div>

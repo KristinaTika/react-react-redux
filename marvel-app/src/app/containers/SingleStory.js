@@ -18,7 +18,7 @@ class SingleStory extends Component {
         const {id} = this.props.match.params;
         storiesService.fetchSingleStory(id)
             .then(res => (this.setState({story: res})))
-            .catch(err => console.log("Something went wrong!", err));
+            .catch(err => this.setState({errorMessage : `Something went wrong! ${err.message}`}));
     }
 
     renderInfo(titles) {
@@ -27,13 +27,14 @@ class SingleStory extends Component {
 
     render() {
         const story = this.state.story[0];
+        const { errorMessage } = this.state;
         return (
-            <div >  
-                {!story
-                    ?
-                        <Loader />
-                    : 
-                        <div id="single-story-container">
+            <div id="wrapper" >
+                 <div id="error"> {errorMessage && errorMessage}
+                    {!story && <Loader /> }
+                </div>  
+                {story &&
+                    <div id="single-story-container">
                             <div>
                                 <h3> {story.title} </h3>
                                 <h4>Original Issue </h4>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { marvelMovies } from '../../../db/movies';
-import Loader from '../../partials/Loader';
 import './SingleMovie.css';
 
 class SingleMovie extends Component {
@@ -18,14 +17,14 @@ class SingleMovie extends Component {
     componentDidMount() {
         let { id }  = this.props.match.params;
         let movieId = parseInt(id);
-        var clickedMovie = marvelMovies.filter(m => movieId === m.id);
+        let clickedMovie = marvelMovies.filter(m => movieId === m.id);
         this.setState({
             movie: clickedMovie
         });
     }
 
     renderItems(items) {
-        return items.map((item,i) => <li key={i}>{item}</li>)
+        return items.map((item,i) => <li key={i}>{item}</li>);
     }
     
     renderGenre(genre) {
@@ -38,9 +37,7 @@ class SingleMovie extends Component {
         return (
             <div id="single-movie-container">
                 {
-                    !movie
-                        ? <Loader />
-                        :
+                    movie &&  
                         <div>
                             <h1> {movie.title} ({movie.year})</h1>
                             <p id="length"> {movie.length} {this.renderGenre(movie.genre)}  {movie.released}</p>

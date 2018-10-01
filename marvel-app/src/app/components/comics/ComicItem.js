@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export const ComicItem = (props) => {
 
-    const {id, title, image} = props.comic;
+    const { id, title, image } = props.comic;
 
     return (
         <Link to={"/comics/" + id}>

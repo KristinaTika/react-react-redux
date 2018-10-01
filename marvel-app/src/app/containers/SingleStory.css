@@ -13,3 +13,7 @@
 #single-story-container ul {
     list-style: none;
 }
+
+#wrapper {
+    min-height: 72vh;
+}

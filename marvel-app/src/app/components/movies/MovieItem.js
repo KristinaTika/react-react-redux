@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const MovieItem = (props) => {
 
-    const {id, image, title, year} = props.movie;
+    const { id, image, title, year } = props.movie;
 
     return(
         <Link to={"/movies/" + id}>

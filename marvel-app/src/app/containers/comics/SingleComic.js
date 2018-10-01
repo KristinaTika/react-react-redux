@@ -15,34 +15,34 @@ class SingleComic extends Component {
     }
 
     componentDidMount() {
-        const {id} = this.props.match.params;
+        const { id } = this.props.match.params;
         comicsService.fetchSingleComic(id)
-            .then(res => (this.setState({comic: res})))
-            .catch(err => console.log("Something went wrong!", err));
+            .then(res => (this.setState({ comic: res })))
+            .catch(err => this.setState({ errorMessage: `Something went wrong! ${err.message}` }));
     }
 
     renderInfo(titles) {
-        if(titles.length === 0) {
+        if (titles.length === 0) {
             return <p> No info available </p>
         }
-        return titles.map((t, i) => (<li key={i}>{t} </li>)); 
+        return titles.map((t, i) => (<li key={i}>{t} </li>));
     }
 
     render() {
         const comic = this.state.comic[0];
+        const { errorMessage } = this.state;
         return (
-            <div >
-                { !comic ? <Loader /> : <h3> {comic.title} </h3> }   
-                {!comic
-                    ?
-                        ""
-                    :
+            <div id="wrapper" >
+                <div id="error"> {errorMessage && errorMessage}
+                    {!comic ? <Loader /> : <h3> {comic.title} </h3>}
+                </div>
+                {comic &&
                     <div id="div-div">
                         <div id="single-comic-container">
                             <div>
                                 <img src={comic.image} alt={comic.title} />
                             </div>
-                            <div> 
+                            <div>
                                 <h4> Format </h4>
                                 <p> {comic.format} </p>
                                 <h4> Isbn </h4>
