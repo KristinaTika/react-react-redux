@@ -38,8 +38,8 @@ const Answer = (props) => {
     }
 
     return (
-        <div className={!finish && "div-hover"}>
-        <div className={finish && colorAnswers()} >
+        <div className={!finish ? "div-hover" : ""}>
+        <div className={finish ? colorAnswers() : ""} >
             <input type="radio" name={props.id} value={displayAnswers()} onClick={(e) => handleClickedAnswer(e, rightAnswer, id)} className="bla" />
             <span>{displayAnswers()}</span>
         </div>
