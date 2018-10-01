@@ -19,10 +19,10 @@ class Footer extends Component {
     }
 
     render() {
-
+        const { timer } = this.state;
         return (
             <footer>
-                <p>CurrentTime: {this.state.timer}</p>
+                <p>CurrentTime: {timer}</p>
                 <p>Copyright &#169; {new Date().getFullYear()} by Kristina Butkovic</p>
             </footer>
         );

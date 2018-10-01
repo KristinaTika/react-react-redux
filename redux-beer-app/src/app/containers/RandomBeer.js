@@ -5,6 +5,7 @@ import './RandomBeer.css';
 import SingleBeerItem from '../components/SingleBeerItem';
 import Loader from '../components/Loader';
 import './RandomBeer.css';
+import PropTypes from 'prop-types';
 
 class RandomBeer extends Component {
     constructor(props) {
@@ -40,20 +41,28 @@ class RandomBeer extends Component {
     }
 
     render() {
+        const {error} = this.props;
         return (
             <div id="random-container">
                 <div id="random-button">
-                    <button onClick={this.handleClick} >Click to get a random beer</button>
+                    <button onClick={this.handleClick}>Click to get a random beer</button>
                 </div>
                 {this.renderRandomBeer()}
+                <p> {error} </p>
             </div>
         );
     }
 }
+RandomBeer.propTypes = {
+    fetchRandomBeer: PropTypes.func.isRequired,
+    randomBeer: PropTypes.arrayOf(PropTypes.object),
+    error: PropTypes.string
+}
 
 const mapStateToProps = (state) => {
     return {
-        randomBeer: state.randomBeer
+        randomBeer: state.randomBeer,
+        error: state.error
     }
 }
 

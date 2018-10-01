@@ -4,6 +4,7 @@ import './SingleBeer.css';
 import { fetchSingleBeer } from '../action-creators/actionCreators';
 import { connect } from 'react-redux';
 import SingleBeerItem from '../components/SingleBeerItem';
+import PropTypes from 'prop-types';
 
 class SingleBeer extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class SingleBeer extends Component {
     renderSingleBeer() {
         const { beer } = this.props;
 
-        if (!beer){
+        if (!beer) {
             return <Loader />
         }
         return beer.map((b, i) => {
@@ -33,17 +34,25 @@ class SingleBeer extends Component {
     }
 
     render() {
+        const { error } = this.state;
         return (
             <div>
                 {this.renderSingleBeer()}
+                <p> {error} </p>
             </div>
         );
     }
 }
+SingleBeer.propTypes = {
+    fetchSingleBeer: PropTypes.func.isRequired,
+    beer: PropTypes.arrayOf(PropTypes.object).isRequired,
+    error: PropTypes.string
+}
 
 const mapStateToProps = (state) => {
     return {
-        beer: state.beer
+        beer: state.beer,
+        error: state.error
     }
 }
 

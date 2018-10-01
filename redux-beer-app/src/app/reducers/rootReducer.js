@@ -1,4 +1,4 @@
-import { FETCH_BEERS, FETCH_SINGLE_BEER, FETCH_RANDOM_BEER, FETCH_SEARCHED_BEERS } from "../action-creators/actionCreators";
+import { FETCH_BEERS, FETCH_SINGLE_BEER, FETCH_RANDOM_BEER, FETCH_SEARCHED_BEERS, HANDLE_ERROR } from "../action-creators/actionCreators";
 
 const initialState = {
     beers: [],
@@ -15,6 +15,8 @@ export const RootReducer = (state = initialState, action) => {
             return { ...state, randomBeer: action.randomBeer };
         case FETCH_SEARCHED_BEERS:
             return { ...state, searchedBeers: action.searchedBeers };
+        case HANDLE_ERROR:
+            return { ...state, error: action.error };
         default:
             return state;
     }

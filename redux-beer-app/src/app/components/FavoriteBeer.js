@@ -11,7 +11,6 @@ const FavoriteBeer = (props) => {
     }
 
     return (
-
         <li id="beer-item-li">
             <div>{beer.name}</div>
             <div>

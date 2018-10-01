@@ -1,18 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SingleBeerItem = (props) => {
 
     const { beer } = props;
 
-    const renderFoodPairing = (food) => {
-        return food.map((f, i) => {
-            return <li key={i}>{f}</li>
-        });
-    }
-
-    const renderIngredients = (names) => {
-        return names.map((h, i) => (<li key={i}>{h.name}, {h.amount.value} {h.amount.unit}</li>));
-    }
+    const renderFoodPairing = food => food.map((f, i) =>  <li key={i}>{f}</li>);
+    
+    const renderIngredients = names => (names.map((h, i) => (<li key={i}>{h.name}, {h.amount.value} {h.amount.unit}</li>)));
 
     return (
         <div id="fav-beer-div">
@@ -55,6 +50,9 @@ const SingleBeerItem = (props) => {
         </div>
     );
 };
+SingleBeerItem.propTypes = {
+    beer: PropTypes.object.isRequired
+}
 
 export default SingleBeerItem;
 

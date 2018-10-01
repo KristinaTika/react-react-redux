@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchSearchedBeers } from '../action-creators/actionCreators';
 import './Search.css';
 import BeerItem from '../components/BeerItem';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
     constructor(props) {
@@ -29,19 +30,20 @@ class Search extends Component {
 
     renderSearchedBeers = () => {
         let renderSearch = <ul className="list-beers">Search some beers</ul>
-
-        if (!this.props.beers) {
+        const { beers } = this.props;
+        if (!beers) {
             return renderSearch;
         }
-        if (this.props.beers.length === 0) {
+        if (beers.length === 0) {
             return renderSearch = <img src="https://webmarketingschool.com/wp-content/uploads/2018/03/nojobsfound.png" id="no-results" alt="Oops! No results found." />
         }
-        return this.props.beers.map((beer) => {
+        return beers.map((beer) => {
             return <BeerItem beer={beer} key={beer.id} />
         });
     }
 
     render() {
+        const { error } = this.props;
         return (
             <div id="search-list-div" >
                 <form onSubmit={this.handleSubmit}>
@@ -50,14 +52,21 @@ class Search extends Component {
                 <div className="list-beers">
                     {this.renderSearchedBeers()}
                 </div>
+                <p> {error} </p>
             </div>
         );
     }
 }
+Search.propTypes = {
+    fetchSearchedBeers: PropTypes.func.isRequired,
+    beers: PropTypes.arrayOf(PropTypes.object),
+    error: PropTypes.string
+}
 
 const mapStateToProps = (state) => {
     return {
-        beers: state.searchedBeers
+        beers: state.searchedBeers,
+        error: state.error
     }
 }
 
