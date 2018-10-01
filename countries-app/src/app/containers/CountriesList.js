@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { countryService } from '../../services/countryService';
 import CountryItem from '../components/CountryItem';
 import "./CountriesList.css";
+import Loader from '../partials/Loader';
 
 class CountriesList extends Component {
     constructor(props) {
@@ -9,7 +10,6 @@ class CountriesList extends Component {
 
         this.state = {
             countries: [],
-            errorMessage: ""
         }
 
         this.showCountries = this.showCountries.bind(this);
@@ -24,29 +24,25 @@ class CountriesList extends Component {
             })    
             .catch((error) => {
                 this.setState({
-                    errorMessage: error
+                    errorMessage: error.message
                 });
             });
     }
 
     showCountries(countries) {
-        if (!countries) {
-            return <div>Loading</div>
-        }
         return countries.map(country => (<CountryItem key={country.name} country={country} />))
     }
 
-
     render() {
-        const { countries } = this.state;
+        const { countries, errorMessage } = this.state;
     
         return (
             <div>
                 <ul id="all-countries-list">
-                    {countries.length === 0 ? "Loading" : this.showCountries(countries)}
+                    {countries.length === 0 ? <Loader /> : this.showCountries(countries)}
                 </ul>
-                <div>
-                    {this.state.errorMessage !== "" ? "Couldn't load countries" : ""}
+                <div id="error">
+                    {errorMessage && `OOUPS! Something went wrong! ${errorMessage}`}
                 </div>
             </div>
         );

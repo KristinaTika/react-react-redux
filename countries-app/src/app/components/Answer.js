@@ -17,16 +17,17 @@ const Answer = (props) => {
         let color;
         const { answers } = props;
 
-        answers.map((givenAnswer) => {
-            if (givenAnswer.id === id) {
-                if (givenAnswer.answer === false) {
-                    if (givenAnswer.clickedResponse === wrong) {
+        answers.map(givenAnswer => {
+            const { id, answer, clickedResponse } = givenAnswer;
+            if (id === id) {
+                if (answer === false) {
+                    if (clickedResponse === wrong) {
                         return color = "wrong";
                     }
                     return;
                 }
-                if (givenAnswer.answer === true) {
-                    if (givenAnswer.clickedResponse === correct) {
+                if (answer === true) {
+                    if (clickedResponse === correct) {
                         return color = "right";
                     }
                 }
@@ -37,8 +38,8 @@ const Answer = (props) => {
     }
 
     return (
-        <div className={finish === true ? "" : "div-hover"}>
-        <div className={finish === true ? colorAnswers() : ""} >
+        <div className={!finish && "div-hover"}>
+        <div className={finish && colorAnswers()} >
             <input type="radio" name={props.id} value={displayAnswers()} onClick={(e) => handleClickedAnswer(e, rightAnswer, id)} className="bla" />
             <span>{displayAnswers()}</span>
         </div>

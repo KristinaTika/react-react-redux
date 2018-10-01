@@ -12,13 +12,15 @@
 }
 
 .right {
-    color: green;
+    color: rgb(62, 238, 62);
 }
 
 .div-hover:hover {
     color: #009688;
     color:  #f1c40f;
 }
+
+
 
 
 

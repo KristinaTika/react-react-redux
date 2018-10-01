@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { countryService } from '../../services/countryService';
 import SingleCountryItem from '../components/SingleCountryItem';
 import "./SingleCountry.css";
+import Loader from '../partials/Loader';
 
 class SingleCountry extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class SingleCountry extends Component {
             singleCountry: [],
             errorMessage: "",
         }
-        this.showCountries = this.showCountries.bind(this)
+        this.showCountries = this.showCountries.bind(this);
     }
 
     componentDidMount() {
@@ -22,29 +23,24 @@ class SingleCountry extends Component {
             })
             .catch((error) => {
                 this.setState({
-                    errorMessage: error
+                    errorMessage: error.message
                 })
             })
     }
 
     showCountries(countries) {
-        if (!countries) {
-            return <div>Loading</div>
-        }
-        return countries.map(country => {
-            return <SingleCountryItem key={country.name} country={country} />
-        })
+        return countries.map(country => <SingleCountryItem key={country.name} country={country} />);
     }
 
     render() {
-
+        const { errorMessage, singleCountry } = this.state;
         return (
             <div>
                 <ul>
-                    {this.showCountries(this.state.singleCountry)}
+                    {singleCountry.length === 0 ? <Loader /> : this.showCountries(singleCountry)}
                 </ul>
-                <div>
-                    {this.state.errorMessage !== "" ? "Something went wrong" : ""}
+                <div id="error">
+                    {errorMessage && `Something went wrong! ${errorMessage}` }
                 </div>
             </div>
         );

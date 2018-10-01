@@ -59,3 +59,22 @@
 .yellow:hover {
     background-color: #FFDE29;
 }
+
+.results-div {
+    text-align: center;
+    margin: 10px;
+}
+
+.results-div>p:last-child {
+    background-color: #2ecc71;
+    color: white;
+    width: 200px;
+    border-radius: 20px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+#required {
+    color: red;
+    margin-left: 30px;
+}
