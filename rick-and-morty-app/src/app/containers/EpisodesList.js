@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { episodesService } from '../../services/episodes';
 import EpisodeItem from '../components/EpisodeItem';
 import './EpisodesList.css';
+import Loader from '../partials/Loader';
 
 class EpisodesList extends Component {
     constructor(props) {
@@ -16,26 +17,21 @@ class EpisodesList extends Component {
 
     componentDidMount() {
         return episodesService.fetchEpisodes()
-            .then((res) => {
-                this.setState({
-                    episodes: res
-                });
-            });
+            .then(res => this.setState({episodes: res}))
+            .catch(err => this.setState({error: `OOUPS! Something went wrong! ${err.message}`})); 
     }
 
-    renderEpisodes() {
-        const { episodes } = this.state;
-
-        return episodes.map((ep) => {
-            return <EpisodeItem ep={ep} key={ep.id} />
-        });
+    renderEpisodes(episodes) {
+        return episodes.map(ep => <EpisodeItem ep={ep} key={ep.id} />);
     }
 
     render() {
+        const {episodes, error } = this.state;
         return (
-            <div>
+            <div id="wrapper">
+                <p id="error"> {error} </p>
                 <ul id="list-episodes">
-                    {this.renderEpisodes()}
+                    {episodes.length === 0 ? <Loader /> : this.renderEpisodes(episodes)}
                 </ul>
             </div>
         );

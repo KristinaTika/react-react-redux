@@ -18,29 +18,21 @@ class SearchBar extends Component {
     }
 
     handleSearch(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        this.setState({[e.target.name]: e.target.value});
     }
 
     handleSubmit(e) {
         e.preventDefault();
         const { searchValue } = this.state;
         charactersService.fetchSearchedCharacters(searchValue)
-            .then((res) => {
-                this.setState({
-                    searchedCharacters: res
-                });
-            });
+            .then(res => this.setState({searchedCharacters: res}));    
     }
 
     renderCharacters(characters) {
         if (!characters) {
             return;
         }
-        return characters.map((character) => {
-            return <CharacterItem character={character} key={character.id} />
-        });
+        return characters.map(character => <CharacterItem character={character} key={character.id} />);
     }
 
     render() {

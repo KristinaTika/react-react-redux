@@ -29,5 +29,4 @@ const mapResults = (res) => {
     });
 }
 
-
 export const locationService = new Locations();

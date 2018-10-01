@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './CharacterItem.css';
+import PropTypes from 'prop-types';
 
 const CharacterItem = (props) => {
 
@@ -17,5 +18,8 @@ const CharacterItem = (props) => {
         </li>
     );
 };
+CharacterItem.propTypes = {
+    character: PropTypes.object.isRequired
+}
 
 export default CharacterItem;

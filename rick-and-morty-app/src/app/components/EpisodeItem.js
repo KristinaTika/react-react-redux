@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { locationService } from '../../services/locations';
 import './EpisodeItem.css';
+import PropTypes from 'prop-types';
 
 class EpisodeItem extends Component {
     constructor(props) {
@@ -17,26 +18,17 @@ class EpisodeItem extends Component {
     }
 
     componentDidMount() {
-
         const { characters } = this.props.ep;
         return locationService.fetchResidents(characters)
-            .then((res) => {
-                this.setState({
-                    characters: res
-                });
-            })
+            .then(res => this.setState({ characters: res }));
     }
 
     handleMouseOver(e) {
-        this.setState({
-            showCharacters: true
-        });
+        this.setState({ showCharacters: true });
     }
 
     handleMouseLeave() {
-        this.setState({
-            showCharacters: false
-        });
+        this.setState({ showCharacters: false });
     }
 
     renderCharacters() {
@@ -50,7 +42,6 @@ class EpisodeItem extends Component {
 
     render() {
         const { name, episode, airDate } = this.props.ep;
-
         return (
             <li>
                 <div><h3>Episode:</h3>{episode}</div>
@@ -63,6 +54,9 @@ class EpisodeItem extends Component {
             </li>
         )
     }
+}
+EpisodeItem.propTypes = {
+    ep: PropTypes.object.isRequired,
 }
 
 export default EpisodeItem;

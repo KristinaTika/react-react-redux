@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { locationService } from '../../services/locations';
 import './LocationItem.css';
+import PropTypes from 'prop-types';
 
 class LocationItem extends Component {
     constructor(props) {
@@ -16,11 +17,7 @@ class LocationItem extends Component {
     componentDidMount() {
         const { residents } = this.props.loc;
         return locationService.fetchResidents(residents)
-            .then((res) => {
-                this.setState({
-                    residents: res
-                })
-            })
+            .then(res => this.setState({residents: res}))
     }
 
     renderResidents() {
@@ -28,13 +25,10 @@ class LocationItem extends Component {
         if(residents.length === 0) {
             return <li>There are no residents.</li>
         }
-        return residents.slice(0, 10).map((res, i) => {
-            return <li key={i}>{res}</li>
-        })
+        return residents.slice(0, 10).map((res, i) => <li key={i}>{res}</li>);
     }
 
     render() {
-
         const { dimension, name, type } = this.props.loc;
         return (
             <li>
@@ -48,6 +42,9 @@ class LocationItem extends Component {
             </li>
         );
     }
+}
+LocationItem.propTypes = {
+    loc: PropTypes.object.isRequired,
 }
 
 export default LocationItem;

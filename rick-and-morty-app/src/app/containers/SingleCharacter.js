@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { charactersService } from '../../services/characters';
 import './SingleCharacter.css';
+import Loader from '../partials/Loader';
 
 class CharacterItem extends Component {
     constructor(props) {
@@ -14,15 +15,12 @@ class CharacterItem extends Component {
     componentDidMount() {
         const { id } = this.props.match.params;
         charactersService.fetchSingleCharacter(id)
-            .then((res) => {
-                this.setState({
-                    character: res,
-                });
-            });
+            .then(res => this.setState({character: res,}))
+            .catch(err => this.setState({error: `OOUPS! Something went wrong! ${err.message}`})); 
     }
 
     render() {
-        let renderCharacter = <div>Loading character...</div>
+        let renderCharacter = <Loader />
         const { character } = this.state;
         const { name, image, gender, origin, species, status, location } = this.state.character;
         if (!character) {

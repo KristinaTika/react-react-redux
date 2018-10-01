@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { locationService } from '../../services/locations';
 import LocationItem from '../components/LocationItem';
 import './LocationList.css';
+import Loader from '../partials/Loader';
 
 class LocationList extends Component {
     constructor(props) {
@@ -17,27 +18,21 @@ class LocationList extends Component {
 
     componentDidMount() {
         return locationService.fetchLocations()
-            .then((res) => {
-                this.setState({
-                    locations: res
-                });
-            });
+            .then(res => this.setState({locations: res}))
+            .catch(err => this.setState({error: `OOUPS! Something went wrong! ${err.message}`})); 
     }
 
-    renderLocations() {
-        const { locations } = this.state;
-
-        return locations.map((loc) => {
-            return <LocationItem loc={loc} key={loc.id} />
-        });
+    renderLocations(locations) {
+        return locations.map(loc => <LocationItem loc={loc} key={loc.id} />);
     }
 
     render() {
+        const { locations, error } = this.state;
         return (
             <div>
                 <h1>Locations: </h1>
                 <ul id="location-list">
-                    {this.renderLocations()}
+                    {locations.length === 0 ? <Loader /> : this.renderLocations(locations)}
                 </ul>
             </div>
         );

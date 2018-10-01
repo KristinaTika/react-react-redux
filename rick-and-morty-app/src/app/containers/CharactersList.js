@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { charactersService } from '../../services/characters';
 import CharacterItem from '../components/CharacterItem';
 import './CharactersList.css';
+import Loader from '../partials/Loader';
 
 class CharactersList extends Component {
     constructor(props) {
@@ -16,28 +17,21 @@ class CharactersList extends Component {
 
     componentDidMount() {
         charactersService.fetchCharacters()
-            .then((res) => {
-                this.setState({
-                    characters: res
-                });
-            })
+            .then(res => this.setState({characters: res}))
+            .catch(err => this.setState({error: `OOUPS! Something went wrong! ${err.message}`})); 
     }
 
     renderCharacters(characters) {
-        if (!characters) {
-            return;
-        }
-        return characters.map((character) => {
-            return <CharacterItem character={character} key={character.id} />
-        });
+        return characters.map(character => <CharacterItem character={character} key={character.id} />);
     }
 
     render() {
-        const { characters } = this.state;
+        const { characters, error } = this.state;
         return (
-            <div>
+            <div id="wrapper">
+            <p id="error"> {error} </p>
                 <ul className="list-characters">
-                    {this.renderCharacters(characters)}
+                    {characters.length === 0 ? <Loader /> : this.renderCharacters(characters)}
                 </ul>
             </div>
         );
