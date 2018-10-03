@@ -1,4 +1,4 @@
-import { FETCH_CHARACTERS, FETCH_SINGLE_CHARACTER, FETCH_LOCATION, FETCH_RESIDENTS, FETCH_EPISODES } from "../action-creators/actionCreators";
+import { FETCH_CHARACTERS, FETCH_SINGLE_CHARACTER, FETCH_LOCATION, FETCH_RESIDENTS, FETCH_EPISODES, HANDLE_ERRORS } from "../action-creators/actionCreators";
 
 const initialState = {
     characters: [],
@@ -14,12 +14,27 @@ const rootReducer = (state = initialState, action) => {
         case FETCH_SINGLE_CHARACTER:
             return { ...state, singleCharacter: action.singleCharacter };
         case FETCH_LOCATION:
-            return { ...state, location: action.location };
+            return { ...state, locations: action.location, };
         case FETCH_RESIDENTS:
-            let residents = action.res.map(raw => raw.data.name);
-            return { ...state, residents: residents };
+        let locations = state.locations.map(l => l);
+        // console.log(locations);
+        let residents = action.residents;
+        // console.log(residents);
+        let myLocations = locations.map(loc => {
+                let filteredResidents = residents.filter(res => loc.name === res.location.name);
+                // console.log(filteredResidents);
+                loc.residents = filteredResidents;
+                // console.log(loc);
+                // var newObj = {...loc, residents: filteredResidents};
+                // console.log(newObj);
+                return loc;
+        });
+        console.log(myLocations);
+            return { ...state, residents: locations };
         case FETCH_EPISODES:
             return { ...state, episodes: action.episodes.data };
+        case HANDLE_ERRORS:
+            return { ...state, error: action.error };
         default:
             return state;
     }

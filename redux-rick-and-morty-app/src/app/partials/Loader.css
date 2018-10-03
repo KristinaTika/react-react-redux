@@ -1,0 +1,40 @@
+#loader {
+    width:116px;
+    height:116px;
+    line-height:116px;
+    text-align:center;
+    color:#A8AAAD;
+    border-radius:512%;
+    border:1px solid #C9CBCC;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+#loader:before {
+    content: 'LOADING';
+}
+
+#loader:after {
+    content:'';
+    width:114px;
+    height:114px;
+    border-radius:512%;
+    border:3px solid transparent;
+    border-top:3px solid #4090DB;
+    position: absolute;
+    top:-2px;
+    left:-2px;
+    animation: rotate 2s ease infinite;
+}
+  
+@keyframes rotate {
+    0% {
+      transform:rotate(0deg);
+    }
+    100% {
+      transform:rotate(360deg);
+    }
+}
+  

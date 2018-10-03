@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { fetchCharacters } from '../action-creators/actionCreators';
 import CharacterItem from '../components/CharacterItem';
 import './CharacterList.css';
+import PropTypes from 'prop-types';
+import Loader from '../partials/Loader';
 
 class CharacterList extends Component {
     constructor(props) {
@@ -15,26 +17,33 @@ class CharacterList extends Component {
         this.props.fetchCharacters();
     }
 
-    renderCharacters () {
-        const { characters } = this.props;
-        return characters.map(val => {
-            return <CharacterItem key={val.id} character={val} />
-        });
+    renderCharacters(characters) {
+        return characters.map(val => <CharacterItem key={val.id} character={val} />);
     }
 
     render() {
-        return(
-            <ul className="list-characters">
-                {this.renderCharacters()}
-            </ul>
+        const { characters, error } = this.props;
+        return (
+            <div id="wrapper">
+                <p> {error} </p>
+                <ul className="list-characters">
+                    {characters.length === 0 ? <Loader /> : this.renderCharacters(characters)}
+                </ul>
+            </div>
         );
     }
+}
+CharacterList.propTypes = {
+    characters: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchCharacters: PropTypes.func.isRequired,
+    error: PropTypes.string
 }
 
 const mapStateToProps = (state) => {
     return {
-        characters: state.characters
+        characters: state.characters,
+        error: state.error
     };
 }
 
-export default connect(mapStateToProps, { fetchCharacters }) (CharacterList);
+export default connect(mapStateToProps, { fetchCharacters })(CharacterList);

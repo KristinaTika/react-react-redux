@@ -1,11 +1,19 @@
 import axios from 'axios';
-import { characterEndpoint, locationEndpoint, episodeEndpoint } from '../../constants/constants';
+import { characterEndpoint, locationEndpoint, episodeEndpoint } from '../../shared/constants';
 
 export const FETCH_CHARACTERS = "FETCH_CHARACTERS";
 export const FETCH_SINGLE_CHARACTER = "FETCH_SINGLE_CHARACTER";
 export const FETCH_LOCATION = "FETCH_LOCATION";
 export const FETCH_RESIDENTS = "FETCH_RESIDENTS";
 export const FETCH_EPISODES = "FETCH_EPISODES";
+export const HANDLE_ERRORS = "HANDLE_ERRORS";
+
+const handleErrors = (error) => {
+    return {
+        type: HANDLE_ERRORS,
+        error: error.message
+    }
+}
 
 const handleCharacters = (characters) => {
     return {
@@ -18,7 +26,7 @@ export const fetchCharacters = () => {
     return dispatch => {
         return axios.get(characterEndpoint)
             .then(res => dispatch(handleCharacters(res.data.results)))
-            .catch(err => console.log("Something went wrong!", err))
+            .catch(err => dispatch(handleErrors(err)));
     }
 }
 
@@ -33,7 +41,7 @@ export const fetchSingleCharacter = (id) => {
     return dispatch => {
         return axios.get(`${characterEndpoint}/${id}`)
             .then(res => dispatch(handleSingleCharacter(res.data)))
-            .catch(err => console.log("Something went wrong!", err))
+            .catch(err => dispatch(handleErrors(err)));
     }
 }
 
@@ -48,14 +56,19 @@ export const fetchLocations = () => {
     return dispatch => {
         return axios.get(locationEndpoint)
             .then(res => dispatch(handleLocation(res.data.results)))
-            .catch(err => console.log("Something went wrong!", err))
+            .then(res => dispatch(fetchResidents(res.data.results.residents)))
+            .catch(err => dispatch(handleErrors(err)));
     }
 }
 
 const handleResidents = (res) => {
+    let myResidents = res.map(r => {
+        // console.log(r.data);
+       return r.data;
+    }) 
     return {
         type: FETCH_RESIDENTS,
-        res
+        residents: myResidents
     }
 }
 
@@ -64,7 +77,7 @@ export const fetchResidents = (residents) => {
         const residentsPromise = residents.map(url => axios.get(url));
         return Promise.all(residentsPromise)
             .then(res => dispatch(handleResidents(res)))
-            .catch(err => console.log("Something went wrong!", err))
+            .catch(err => dispatch(handleErrors(err)));
     }
 }
 
@@ -79,6 +92,6 @@ export const fetchEpisodes = () => {
     return dispatch => {
         return axios.get(episodeEndpoint)
          .then(res => dispatch(handleEpisodes(res)))
-         .catch(err => console.log("Something went wrong!", err))
+         .catch(err => dispatch(handleErrors(err)));
     }
 }

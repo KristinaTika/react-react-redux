@@ -10,14 +10,18 @@ class LocationItem extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchResidents(this.props.location.residents);
+        const { residents } = this.props.location;
+        // console.log(residents);
+        this.props.fetchResidents(residents);
     }
 
     renderResidents() {
         const { residents } = this.props;
-        return residents.map((res, i) => {
-            return <li key={i}>{res}</li>
-        });
+
+        if(residents.length === 0) {
+            return <div> loading residents </div>
+        }
+        return residents.map((res, i) => <li key={i}>{res}</li>);
     }
 
     render() {
