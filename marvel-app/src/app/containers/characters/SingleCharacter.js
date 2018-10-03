@@ -34,7 +34,7 @@ class SingleCharacter extends Component {
             .then(res => (this.setState({stories: res})))
             .then(res => comicsService.fetchCharacterComics(id))
             .then(res => (this.setState({comics: res})))
-            .catch(err => console.log("Something went wrong!", err.message));
+            .catch(err => this.setState({error:err.message}));
     }
 
     renderTitles(titles) {
@@ -53,9 +53,10 @@ class SingleCharacter extends Component {
 
     render() {
         const character = this.state.character[0];
-        const { series, stories, comics } = this.state;
+        const { series, stories, comics, error } = this.state;
         return (
             <div >
+                <p> { error ? error : ""}</p>
                 { character && <h3> {character.name} </h3> }   
             { character &&
                     <div id="single-character-container">
