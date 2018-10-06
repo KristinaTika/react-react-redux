@@ -1,0 +1,21 @@
+#posts-wrapper {
+    margin: 30px;
+}
+
+#posts-wrapper h1 {
+    text-align: center;
+}
+
+#posts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 2fr));
+    resize: horizontal;
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
+    text-align: center;
+    list-style: none;
+}
+
+#posts-list li {
+    margin: 10px;
+}

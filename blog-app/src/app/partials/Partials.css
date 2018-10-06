@@ -1,0 +1,26 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    background-color: #0336FF;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+header nav a {
+    color: white;
+    margin-right: 15px;
+}
+
+header nav a:hover {
+    border-bottom: 1px solid white;
+}
+
+footer {
+    background-color: #0336FF;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+}
