@@ -1,0 +1,62 @@
+.container {
+    min-height: 86vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.dice {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    transform-style: preserve-3d;
+    animation: spin 10s infinite alternate;
+}
+  
+.dice > div {
+    position:absolute;
+    height: 200px;
+    width: 200px;
+    transition: all 1s;
+}
+  
+.dice > .side > img {
+    width: 100%;
+}
+  
+@keyframes spin {
+    0% {
+      transform: rotateX(90deg) rotateY(360deg) translateZ(0px);
+    }
+}
+  
+.side {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    opacity: .99;
+}
+  
+.one {
+    transform: rotateX(90deg) translateZ(100px);
+}
+  
+.two {
+    transform: translateZ(100px);
+}
+  
+.three {
+    transform: rotateY(90deg) translateZ(100px);
+}
+  
+.four {
+    transform: rotateY(180deg) translateZ(100px);
+}
+  
+.five {
+    transform: rotateY(-90deg) translateZ(100px);
+}
+  
+.six {
+    transform: rotateX(-90deg) translateZ(100px);
+}

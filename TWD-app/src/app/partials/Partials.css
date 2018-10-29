@@ -1,0 +1,26 @@
+header, footer {
+    background-color: brown;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    margin-right: 5px;
+}
+
+header nav a:hover {
+    padding: 6px 0;
+    border-bottom: 2px solid white;
+    border-top: 2px solid white;
+}
+
+footer {
+    justify-content: center;
+    margin-top: 30px;
+}

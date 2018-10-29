@@ -1,0 +1,21 @@
+#actor-status {
+    font-size: 50px;
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.red {
+    background: brown;
+}
+
+.green {
+    background: green;
+    color: white;
+}
+
+.blue {
+    background: blue;
+    color: white;
+}

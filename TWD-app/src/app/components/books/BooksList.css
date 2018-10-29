@@ -1,0 +1,8 @@
+.books-container ul  a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.books-container ul  a:hover {
+    color: rgb(0, 0, 204);
+}

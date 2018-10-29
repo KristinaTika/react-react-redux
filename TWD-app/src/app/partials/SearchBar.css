@@ -1,0 +1,16 @@
+#search-bar {
+    margin: 0 auto;
+    margin-top: 20px;
+ 
+}
+
+#search-bar input {
+    width: 75%;
+    padding: 10px;
+    outline: none;
+    border: none;
+}
+
+#search-bar input:focus {
+    border-bottom: 4px solid brown;
+}
